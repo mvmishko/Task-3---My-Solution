@@ -1,0 +1,45 @@
+Zend Framework 2 application module install
+
+(If needed install ZF2 skeleton application following instructions from the official Zend Framework site)
+
+Steps:
+1. Copy PhoneBook folder into the model folder of ZF2 application.
+2. Add new entry 'PhoneBook' to the modules array of the application.config.php (in the root\config directory)
+	
+	'modules' => array(
+        	'Application',
+        	'PhoneBook',
+    	),
+3. Open phpMyAdmin and add new database 'task3db'
+4. Import task3db.sql into this database
+5. Edit local.php and global.php in config\autoload directory to access task3db database
+
+	'db' => array(
+'driver' => 'Pdo', 
+			'dsn' => 'mysql:dbname=task3db;host=localhost',
+		
+        'driver_options' => array(
+			
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+
+        	),
+
+    	), 
+6. If You want this application module to become Home page of this ZF2 application edit
+	
+	module/Application/config/module.config.php
+
+   by changing the controller name of the default route
+
+	'home' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/',
+                    'defaults' => array(
+                        'controller' => 'PhoneBook\Controller\Book',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+
+7. Start the application and use it! (localhost/zf2skeleton/public/)
